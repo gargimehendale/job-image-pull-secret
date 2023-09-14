@@ -20,9 +20,9 @@ spec:
           kubectl create secret docker-registry my-image-pull-secret \
             --docker-server=docker.io \
             --docker-username=admin \
-            --docker-password=password \
-            --docker-email=gargimehendale@gmail.com \
+            --docker-password=password@123 \
+            --docker-email=john@gmail.com \
             --namespace=default \
-            -o yaml --dry-run=client | kubectl replace -f -
+            -o yaml --dry-run=client | kubectl apply -f -
       imagePullSecrets:
       - name: image-pull-secret
