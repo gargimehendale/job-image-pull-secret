@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: update-image-pull-secret
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: kubectl
+        image: bitnami/kubectl
+        command:
+        - /bin/sh
+        - -c
+        - |
+          kubectl create secret docker-registry my-image-pull-secret \
+            --docker-server=docker.io \
+            --docker-username=admin \
+            --docker-password=password \
+            --docker-email=gargimehendale@gmail.com \
+            -o yaml --dry-run=client | kubectl replace -f -
+      imagePullSecrets:
+      - name: image-pull-secret
