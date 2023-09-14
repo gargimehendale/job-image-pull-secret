@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: update-image-pull-secret
+  namespace: test
   annotations:
     argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/hook-delete-policy: HookSucceeded
@@ -21,6 +22,7 @@ spec:
             --docker-username=admin \
             --docker-password=password \
             --docker-email=gargimehendale@gmail.com \
+            --namespace=test \
             -o yaml --dry-run=client | kubectl replace -f -
       imagePullSecrets:
       - name: image-pull-secret
